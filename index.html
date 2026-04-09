@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -79,6 +78,17 @@
 
   html { scroll-behavior: smooth; }
 
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #000; }
+  ::-webkit-scrollbar-thumb {
+    background: var(--dim);
+    border-radius: 0;
+    transition: background 0.2s;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: var(--mid); }
+  * { scrollbar-width: thin; scrollbar-color: var(--dim) #000; }
+
   body {
     background: var(--bg);
     color: var(--fg);
@@ -130,6 +140,16 @@
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--fg); }
+  .nav-contact-btn {
+    color: var(--fg) !important;
+    border: 1px solid var(--border);
+    padding: 6px 14px !important;
+    transition: border-color 0.2s, background 0.2s !important;
+  }
+  .nav-contact-btn:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: var(--border-hover) !important;
+  }
 
   /* ── HERO ── */
   .hero {
@@ -145,26 +165,49 @@
     position: absolute; inset: 0;
     background: #000;
   }
-  /* Subtle scanline effect */
+
+  /* ── Hero video (desktop only) ── */
+  .hero-video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hero-video.loaded { opacity: 1; }
+
+  /* Dark cinematic overlay on top of video */
+  .hero-video-overlay {
+    position: absolute; inset: 0; z-index: 1;
+    background:
+      linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 50%, rgba(0,0,0,0.3) 100%),
+      linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  /* Scanline effect layered on video */
   .hero-bg::before {
     content: '';
-    position: absolute; inset: 0;
+    position: absolute; inset: 0; z-index: 2;
     background: repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(255,255,255,0.012) 2px,
-      rgba(255,255,255,0.012) 4px
+      rgba(255,255,255,0.008) 2px,
+      rgba(255,255,255,0.008) 4px
     );
     pointer-events: none;
   }
-  /* Diagonal light shard */
+  /* Diagonal shard — visible over video */
   .hero-bg::after {
     content: '';
-    position: absolute;
+    position: absolute; z-index: 2;
     top: -20%; right: -10%;
     width: 55%; height: 130%;
-    background: linear-gradient(135deg, rgba(255,255,255,0.025) 0%, transparent 60%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.018) 0%, transparent 60%);
     transform: skewX(-12deg);
     pointer-events: none;
   }
@@ -173,6 +216,7 @@
     font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
     color: var(--mid); margin-bottom: 20px;
     opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards;
+    position: relative; z-index: 3;
   }
 
   .hero-title {
@@ -180,7 +224,7 @@
     font-size: clamp(72px, 12vw, 160px);
     line-height: 0.9;
     letter-spacing: 0.04em;
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
     opacity: 0; animation: fadeUp 0.9s 0.35s ease forwards;
   }
   .hero-title span {
@@ -196,13 +240,13 @@
     max-width: 380px; margin-top: 28px;
     font-size: 12px; color: var(--mid); line-height: 1.7;
     opacity: 0; animation: fadeUp 0.9s 0.5s ease forwards;
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
   }
 
   .hero-cta {
     margin-top: 36px; display: flex; gap: 16px; align-items: center;
     opacity: 0; animation: fadeUp 0.9s 0.65s ease forwards;
-    position: relative; z-index: 1;
+    position: relative; z-index: 3;
   }
 
   .btn-primary {
@@ -233,6 +277,7 @@
     text-transform: uppercase;
     display: flex; align-items: center; gap: 10px;
     opacity: 0; animation: fadeUp 1s 1s ease forwards;
+    z-index: 3;
   }
   .hero-scroll-hint::before {
     content: ''; width: 1px; height: 50px;
@@ -270,7 +315,7 @@
   .product-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
 
   .product-preview {
-    width: 100%; aspect-ratio: 16/10;
+    width: 100%; aspect-ratio: 16/9;
     background: #0a0a0a;
     display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden;
@@ -286,6 +331,14 @@
     width: 100%; height: 100%;
     object-fit: cover;
     opacity: 0.6;
+  }
+  /* 1920x1080 (16:9) product image — fills the 16/9 container perfectly */
+  .product-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
   .preview-label {
     position: absolute;
@@ -457,105 +510,44 @@
   }
   .platform-link:hover { color: var(--fg); }
 
-  /* YouTube thumbnails */
+  /* YouTube embed cards */
   .yt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .yt-thumb {
     position: relative; aspect-ratio: 16/9;
     background: #0d0d0d;
     border: 1px solid var(--border);
-    overflow: hidden; cursor: none;
+    overflow: hidden; cursor: default;
     transition: border-color 0.3s;
-    text-decoration: none; display: block;
+    display: block;
   }
   .yt-thumb:hover { border-color: var(--border-hover); }
-  .yt-thumb:hover .yt-overlay { opacity: 1; }
-  .yt-thumb-ph {
-    width: 100%; height: 100%;
-    background:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(160deg, #111 0%, #1a1a1a 100%);
-    background-size: 16px 16px, 16px 16px, 100% 100%;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .yt-play {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .yt-play-tri {
-    width: 0; height: 0;
-    border-top: 5px solid transparent;
-    border-bottom: 5px solid transparent;
-    border-left: 9px solid rgba(255,255,255,0.5);
-    margin-left: 2px;
-  }
-  .yt-overlay {
+  .yt-embed-wrap {
     position: absolute; inset: 0;
-    background: rgba(0,0,0,0.35);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s;
+    width: 100%; height: 100%;
   }
-  .yt-overlay-icon {
-    width: 40px; height: 40px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.5);
-    display: flex; align-items: center; justify-content: center;
+  .yt-embed-wrap iframe {
+    width: 100%; height: 100%;
+    border: none; display: block;
   }
-  .yt-play-tri-light {
-    border-left-color: rgba(255,255,255,0.8);
-  }
-  .yt-meta {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 8px 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-  }
-  .yt-title { font-size: 9px; letter-spacing: 0.08em; line-height: 1.4; color: var(--fg); }
-  .yt-views { font-size: 9px; color: var(--mid); margin-top: 2px; }
-
-  /* TikTok grid */
+  /* TikTok embed grid */
   .tt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .tt-clip {
     position: relative; aspect-ratio: 9/16;
     background: #0d0d0d;
     border: 1px solid var(--border);
-    overflow: hidden; cursor: none;
+    overflow: hidden; cursor: default;
     transition: border-color 0.3s;
-    text-decoration: none; display: block;
+    display: block;
   }
   .tt-clip:hover { border-color: var(--border-hover); }
-  .tt-clip:hover .tt-overlay { opacity: 1; }
-  .tt-ph {
-    width: 100%; height: 100%;
-    background: linear-gradient(170deg, #0f0f0f 0%, #1a1a1a 100%);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .tt-ph-inner {
-    font-size: 9px; letter-spacing: 0.1em; color: var(--dim); text-transform: uppercase;
-    text-align: center; line-height: 1.8;
-  }
-  .tt-overlay {
+  .tt-embed-wrap {
     position: absolute; inset: 0;
-    background: rgba(0,0,0,0.35);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.3s;
+    width: 100%; height: 100%;
   }
-  .tt-play-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.5);
-    display: flex; align-items: center; justify-content: center;
+  .tt-embed-wrap iframe {
+    width: 100%; height: 100%;
+    border: none; display: block;
   }
-  .tt-meta {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 8px 10px 10px;
-    background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
-  }
-  .tt-views { font-size: 9px; color: var(--mid); }
-  .tt-likes { font-size: 9px; color: rgba(255,255,255,0.7); margin-top: 1px; }
 
   /* ── FOOTER ── */
   footer {
@@ -621,18 +613,178 @@
     overflow: hidden;
   }
 
+  /* ── NAV TOGGLE (hamburger) ── */
+  .nav-toggle {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px;
+    width: 36px; height: 36px;
+    background: transparent; border: 1px solid var(--border);
+    cursor: none; padding: 0;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-toggle:hover { border-color: var(--border-hover); }
+  .nav-toggle span {
+    display: block; width: 16px; height: 1px; background: var(--fg);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { transform: translateY(-6px) rotate(-45deg); }
+
   /* ── RESPONSIVE ── */
+
+  /* Tablet — minor tweaks */
+  @media (max-width: 1024px) {
+    .nav-links { gap: 24px; }
+    .platform-block { padding: 24px; }
+    .yt-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Mobile */
   @media (max-width: 768px) {
-    nav { padding: 18px 20px; }
-    section { padding: 70px 20px; }
-    .hero { padding: 0 20px 50px; }
-    .stats-row { grid-template-columns: 1fr; }
-    .stat-block { border-right: none; border-bottom: 1px solid var(--border); }
-    .stat-block:last-child { border-bottom: none; }
-    .platform-sections { grid-template-columns: 1fr; }
-    footer { flex-direction: column; gap: 20px; text-align: center; }
-    .tt-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Hide desktop cursor on touch */
+    body { cursor: auto; }
+    #cursor { display: none; }
+
+    /* ── Nav ── */
+    nav { padding: 16px 20px; position: fixed; }
+    .nav-toggle { display: flex; }
+
+    .nav-links {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 100dvh;
+      background: rgba(0,0,0,0.97);
+      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(20px);
+      flex-direction: column;
+      justify-content: center; align-items: center;
+      gap: 0;
+      list-style: none;
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.77,0,0.18,1);
+      z-index: 99;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-links.open { transform: translateY(0); }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a {
+      display: block;
+      padding: 18px 20px;
+      font-size: 13px;
+      letter-spacing: 0.2em;
+      color: var(--mid);
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links li:first-child a { border-top: 1px solid var(--border); }
+    .nav-links a:hover, .nav-links a:active { color: var(--fg); background: rgba(255,255,255,0.03); }
+    .nav-contact-btn {
+      color: var(--fg) !important;
+      border: none !important;
+      padding: 18px 20px !important;
+      background: rgba(255,255,255,0.04);
+    }
+    .nav-contact-btn:hover { background: rgba(255,255,255,0.08) !important; }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 0 24px 56px;
+      justify-content: flex-end;
+      min-height: 100dvh;
+    }
+    /* No video on mobile */
+    .hero-video { display: none; }
+
+    .hero-tag { font-size: 9px; letter-spacing: 0.18em; }
+    .hero-title { font-size: clamp(62px, 18vw, 96px); }
+    .hero-title span { font-size: clamp(18px, 5vw, 28px); }
+    .hero-sub { font-size: 11px; max-width: 100%; margin-top: 20px; }
+    .hero-cta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      margin-top: 28px;
+      width: 100%;
+    }
+    .btn-primary {
+      width: 100%; justify-content: center;
+      padding: 16px 28px; font-size: 11px;
+      cursor: auto;
+    }
+    .btn-ghost { padding: 12px 0; cursor: auto; }
     .hero-scroll-hint { display: none; }
+
+    /* ── Sections ── */
+    section { padding: 64px 24px; }
+
+    /* ── Store ── */
+    .store-grid {
+      grid-template-columns: 1fr;
+      gap: 1px;
+    }
+    .product-card { border-radius: 0; }
+    .product-info { padding: 20px; }
+    .product-name { font-size: 24px; }
+    .product-footer { gap: 12px; }
+    .btn-buy { cursor: auto; padding: 12px 20px; }
+
+    /* ── Stats ── */
+    .stats-row {
+      grid-template-columns: 1fr;
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .stat-block {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+    .stat-block:last-child { border-bottom: none; }
+    .stat-number { font-size: 40px; }
+
+    /* ── Platform sections ── */
+    .platform-sections { grid-template-columns: 1fr; gap: 1px; }
+    .platform-block { padding: 24px 20px; }
+    .platform-name { font-size: 26px; }
+
+    /* ── YouTube grid ── */
+    .yt-grid { grid-template-columns: 1fr; gap: 6px; }
+    .yt-thumb { aspect-ratio: 16/9; }
+
+    /* ── TikTok grid ── */
+    .tt-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
+    .tt-clip { border-radius: 0; }
+
+    /* ── Footer ── */
+    footer {
+      flex-direction: column;
+      gap: 28px;
+      text-align: center;
+      padding: 36px 24px;
+    }
+    .footer-links {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px 24px;
+    }
+    .footer-links a { font-size: 11px; }
+    .footer-brand { font-size: 20px; }
+
+    /* Disable fancy cursor on all interactive elements */
+    a, button, .product-card, .btn-buy, .btn-primary, .btn-ghost { cursor: auto; }
+  }
+
+  /* Very small phones */
+  @media (max-width: 380px) {
+    .hero-title { font-size: 58px; }
+    .tt-grid { grid-template-columns: 1fr; }
+    nav { padding: 14px 16px; }
+    section { padding: 56px 16px; }
+    .platform-block { padding: 20px 16px; }
   }
 </style>
 </head>
@@ -725,13 +877,43 @@
         TikTok ↗
       </a>
     </li>
+
+    <li>
+      <a href="https://payhip.com/blobbyofficial/contact"
+         target="_blank"
+         rel="noopener noreferrer external"
+         aria-label="Contact Blobby"
+         class="nav-contact-btn">
+        Contact
+      </a>
+    </li>
   </ul>
 
 </nav>
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <!--
+      HERO VIDEO — desktop only.
+      Replace the src with your own video file path, e.g. /media/hero.mp4
+      Recommended: H.264 MP4, 1920×1080, 10–30s loop, no audio needed.
+      Keep file size under ~8MB for fast loading.
+    -->
+    <video
+      class="hero-video"
+      id="heroVideo"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      aria-hidden="true"
+    >
+      <source src="/media/hero.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-video-overlay"></div>
+  </div>
   <p class="hero-tag">DaVinci Resolve Presets</p>
   <h1 class="hero-title">
     <span>Create the</span>
@@ -847,65 +1029,61 @@
     <div class="platform-block">
       <div class="platform-header">
         <div class="platform-name">YouTube</div>
-        <a href="#" class="platform-link" target="_blank">View Channel →</a>
+        <a href="https://youtube.com/@blobby.official" class="platform-link" target="_blank" rel="noopener noreferrer">View Channel →</a>
       </div>
       <div class="yt-grid">
 
-        <!-- YT Card 1 -->
-        <a href="#" class="yt-thumb" target="_blank">
-          <div class="yt-thumb-ph">
-            <div class="yt-play"><div class="yt-play-tri"></div></div>
+        <!-- YT Card 1 — replace VIDEO_ID_1 with your YouTube video ID -->
+        <div class="yt-thumb">
+          <div class="yt-embed-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID_1?rel=0&modestbranding=1&color=white"
+              title="YouTube video 1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="yt-meta">
-            <div class="yt-title">Video Title Placeholder</div>
-            <div class="yt-views">000K views</div>
-          </div>
-        </a>
+        </div>
 
-        <!-- YT Card 2 -->
-        <a href="#" class="yt-thumb" target="_blank">
-          <div class="yt-thumb-ph">
-            <div class="yt-play"><div class="yt-play-tri"></div></div>
+        <!-- YT Card 2 — replace VIDEO_ID_2 with your YouTube video ID -->
+        <div class="yt-thumb">
+          <div class="yt-embed-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID_2?rel=0&modestbranding=1&color=white"
+              title="YouTube video 2"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="yt-meta">
-            <div class="yt-title">Video Title Placeholder</div>
-            <div class="yt-views">000K views</div>
-          </div>
-        </a>
+        </div>
 
-        <!-- YT Card 3 -->
-        <a href="#" class="yt-thumb" target="_blank">
-          <div class="yt-thumb-ph">
-            <div class="yt-play"><div class="yt-play-tri"></div></div>
+        <!-- YT Card 3 — replace VIDEO_ID_3 with your YouTube video ID -->
+        <div class="yt-thumb">
+          <div class="yt-embed-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID_3?rel=0&modestbranding=1&color=white"
+              title="YouTube video 3"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="yt-meta">
-            <div class="yt-title">Video Title Placeholder</div>
-            <div class="yt-views">000K views</div>
-          </div>
-        </a>
+        </div>
 
-        <!-- YT Card 4 -->
-        <a href="#" class="yt-thumb" target="_blank">
-          <div class="yt-thumb-ph">
-            <div class="yt-play"><div class="yt-play-tri"></div></div>
+        <!-- YT Card 4 — replace VIDEO_ID_4 with your YouTube video ID -->
+        <div class="yt-thumb">
+          <div class="yt-embed-wrap">
+            <iframe
+              src="https://www.youtube.com/embed/VIDEO_ID_4?rel=0&modestbranding=1&color=white"
+              title="YouTube video 4"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="yt-meta">
-            <div class="yt-title">Video Title Placeholder</div>
-            <div class="yt-views">000K views</div>
-          </div>
-        </a>
+        </div>
 
       </div>
     </div>
@@ -914,51 +1092,48 @@
     <div class="platform-block">
       <div class="platform-header">
         <div class="platform-name">TikTok</div>
-        <a href="#" class="platform-link" target="_blank">View Profile →</a>
+        <a href="https://tiktok.com/@blobby.official" class="platform-link" target="_blank" rel="noopener noreferrer">View Profile →</a>
       </div>
       <div class="tt-grid">
 
-        <!-- TT Clip 1 -->
-        <a href="#" class="tt-clip" target="_blank">
-          <div class="tt-ph">
-            <div class="tt-ph-inner">Clip<br/>Placeholder</div>
+        <!-- TT Clip 1 — replace TIKTOK_VIDEO_ID_1 with your TikTok video ID (the number in the video URL) -->
+        <div class="tt-clip">
+          <div class="tt-embed-wrap">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_1"
+              title="TikTok video 1"
+              allow="encrypted-media"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="tt-meta">
-            <div class="tt-views">0.0M views</div>
-            <div class="tt-likes">♥ 000K</div>
-          </div>
-        </a>
+        </div>
 
-        <!-- TT Clip 2 -->
-        <a href="#" class="tt-clip" target="_blank">
-          <div class="tt-ph">
-            <div class="tt-ph-inner">Clip<br/>Placeholder</div>
+        <!-- TT Clip 2 — replace TIKTOK_VIDEO_ID_2 with your TikTok video ID -->
+        <div class="tt-clip">
+          <div class="tt-embed-wrap">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_2"
+              title="TikTok video 2"
+              allow="encrypted-media"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="tt-meta">
-            <div class="tt-views">0.0M views</div>
-            <div class="tt-likes">♥ 000K</div>
-          </div>
-        </a>
+        </div>
 
-        <!-- TT Clip 3 -->
-        <a href="#" class="tt-clip" target="_blank">
-          <div class="tt-ph">
-            <div class="tt-ph-inner">Clip<br/>Placeholder</div>
+        <!-- TT Clip 3 — replace TIKTOK_VIDEO_ID_3 with your TikTok video ID -->
+        <div class="tt-clip">
+          <div class="tt-embed-wrap">
+            <iframe
+              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_3"
+              title="TikTok video 3"
+              allow="encrypted-media"
+              allowfullscreen
+              loading="lazy">
+            </iframe>
           </div>
-          <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
-          </div>
-          <div class="tt-meta">
-            <div class="tt-views">0.0M views</div>
-            <div class="tt-likes">♥ 000K</div>
-          </div>
-        </a>
+        </div>
 
       </div>
     </div>
@@ -968,27 +1143,77 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-brand">PRESETSBYBLOB</div>
+  <div class="footer-brand">BLOBBYOFFICIAL</div>
   <div class="footer-links">
     <a href="#store">Store</a>
     <a href="#portfolio">Portfolio</a>
-    <a href="#" target="_blank">YouTube</a>
-    <a href="#" target="_blank">TikTok</a>
-    <a href="#" target="_blank">Discord</a>
+    <a href="https://youtube.com/@blobby.official" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://tiktok.com/@blobby.official" target="_blank" rel="noopener noreferrer">TikTok</a>
+    <a href="https://discord.gg/quq8thpMEd" target="_blank" rel="noopener noreferrer">Discord</a>
+    <a href="https://payhip.com/blobbyofficial/contact" target="_blank" rel="noopener noreferrer">Contact</a>
   </div>
-  <div class="footer-copy">© 2026 PRESETSBYBLOB</div>
+  <div class="footer-copy">© 2026 BLOBBYOFFICIAL</div>
 </footer>
 
 <script>
-  /* ── Cursor ── */
+  /* ── Cursor (desktop only) ── */
   const cursor = document.getElementById('cursor');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top  = e.clientY + 'px';
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.querySelectorAll('a, button, .product-card').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+    });
+  } else {
+    cursor.style.display = 'none';
+  }
+
+  /* ── Hero video fade-in (desktop only) ── */
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo && window.innerWidth > 768) {
+    const onReady = () => heroVideo.classList.add('loaded');
+    if (heroVideo.readyState >= 3) {
+      onReady();
+    } else {
+      heroVideo.addEventListener('canplay', onReady, { once: true });
+    }
+    /* Fallback: if video fails to load, just leave the dark bg */
+    heroVideo.addEventListener('error', () => heroVideo.style.display = 'none');
+  }
+
+  /* ── Hamburger nav toggle ── */
+  const navToggle = document.querySelector('.nav-toggle');
+  const navLinks  = document.querySelector('.nav-links');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', isOpen);
+    navToggle.setAttribute('aria-expanded', isOpen);
+    /* Lock scroll when menu open */
+    document.body.style.overflow = isOpen ? 'hidden' : '';
   });
-  document.querySelectorAll('a, button, .product-card, .yt-thumb, .tt-clip').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('big'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+
+  /* Close menu when a link is clicked */
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+
+  /* Close menu on resize to desktop */
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
   });
 
   /* ── Scroll reveal ── */
