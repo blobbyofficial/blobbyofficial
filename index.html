@@ -9,26 +9,26 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
 <title>BlobbyOfficial | Premium DaVinci Resolve Presets</title>
-<meta name="description" content="High-quality cinematic DaVinci Resolve presets for editors. Clean, professional, fast workflows. Used in viral TikTok and YouTube edits." />
+<meta name="description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta name="keywords" content="DaVinci Resolve presets, video editing presets, cinematic LUTs, TikTok editing, YouTube editing, color grading presets" />
 <meta name="author" content="BlobbyOfficial" />
 
 <!-- SEO / Indexing -->
 <meta name="robots" content="index, follow" />
-<link rel="canonical" href="https://yourdomain.com/" />
+<link rel="canonical" href="https://blobbyofficial.com/" />
 
 <!-- Open Graph (for Discord, Facebook etc.) -->
-<meta property="og:title" content="BlobbyOfficial Presets" />
-<meta property="og:description" content="Premium DaVinci Resolve presets used in viral edits." />
+<meta property="og:title" content="blobbyofficial" />
+<meta property="og:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://yourdomain.com/" />
-<meta property="og:image" content="https://yourdomain.com/preview.png" />
+<meta property="og:url" content="https://blobbyofficial.com/" />
+<meta property="og:image" content="https://blobbyofficial.com/preview.png" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="BlobbyOfficial Presets" />
-<meta name="twitter:description" content="High-quality cinematic presets." />
-<meta name="twitter:image" content="https://yourdomain.com/preview.png" />
+<meta name="twitter:title" content="blobbyofficial" />
+<meta name="twitter:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
+<meta name="twitter:image" content="https://blobbyofficial.com/preview.png" />
 
 <!-- Favicon -->
 <link rel="icon" href="/favicon.ico" />
@@ -48,17 +48,17 @@
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "BlobbyOfficial",
-  "url": "https://yourdomain.com",
+  "url": "https://blobbyofficial.com",
   "sameAs": [
-    "https://tiktok.com/@yourusername",
-    "https://youtube.com/@yourchannel",
-    "https://discord.gg/yourserver"
+    "https://tiktok.com/@blobby.official",
+    "https://youtube.com/@blobbyofficial_",
+    "https://discord.gg/quq8thpMEd"
   ],
   "jobTitle": "Video Editor",
   "knowsAbout": [
     "Video Editing",
     "DaVinci Resolve",
-    "Color Grading"
+    "Fusion Presets"
   ]
 }
 </script>
@@ -108,6 +108,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 22px 40px;
     background: rgba(0,0,0,0.85);
+    -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -354,8 +355,8 @@
   .product-info {
     padding: 24px 24px 26px;
     background: rgba(255,255,255,0.02);
-    backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
     border-top: 1px solid var(--border);
   }
   .product-name {
@@ -410,8 +411,8 @@
     padding: 36px 32px;
     border-right: 1px solid var(--border);
     position: relative;
-    backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
     background: rgba(255,255,255,0.015);
   }
   .stat-block:last-child { border-right: none; }
@@ -493,8 +494,8 @@
   .yt-overlay {
     position: absolute; inset: 0;
     background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s;
   }
@@ -502,6 +503,9 @@
     width: 40px; height: 40px; border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.5);
     display: flex; align-items: center; justify-content: center;
+  }
+  .yt-play-tri-light {
+    border-left-color: rgba(255,255,255,0.8);
   }
   .yt-meta {
     position: absolute; bottom: 0; left: 0; right: 0;
@@ -535,8 +539,8 @@
   .tt-overlay {
     position: absolute; inset: 0;
     background: rgba(0,0,0,0.35);
-    backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     display: flex; align-items: center; justify-content: center;
     opacity: 0; transition: opacity 0.3s;
   }
@@ -609,6 +613,14 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ── SVG GRAIN FILTER ── */
+  #grain-svg {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 768px) {
     nav { padding: 18px 20px; }
@@ -627,7 +639,7 @@
 <body>
 
 <!-- Advanced SVG Grain System -->
-<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+<svg id="grain-svg" aria-hidden="true">
   <defs>
     <filter id="grain-filter" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
       
@@ -746,7 +758,7 @@
     <div class="product-card reveal">
 
       <!-- Clickable preview (optional: link to product page or video) -->
-      <a href="https://payhip.com/b/k1u2c" target="_blank" class="product-preview">
+      <  href="https://payhip.com/b/k1u2c" target="_blank" rel="noopener noreferrer" class="product-preview">
         <div class="product-preview-inner">
 
           <!-- REAL IMAGE -->
@@ -787,7 +799,7 @@
           </div>
 
           <!-- Button can also link -->
-          <a href="https://payhip.com/b/k1u2c" target="_blank" class="btn-buy">
+          <a href="https://payhip.com/b/k1u2c" target="_blank" rel="noopener noreferrer" class="btn-buy">
             Purchase
           </a>
         </div>
@@ -845,7 +857,7 @@
             <div class="yt-play"><div class="yt-play-tri"></div></div>
           </div>
           <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8)"></div></div>
+            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="yt-meta">
             <div class="yt-title">Video Title Placeholder</div>
@@ -859,7 +871,7 @@
             <div class="yt-play"><div class="yt-play-tri"></div></div>
           </div>
           <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8)"></div></div>
+            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="yt-meta">
             <div class="yt-title">Video Title Placeholder</div>
@@ -873,7 +885,7 @@
             <div class="yt-play"><div class="yt-play-tri"></div></div>
           </div>
           <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8)"></div></div>
+            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="yt-meta">
             <div class="yt-title">Video Title Placeholder</div>
@@ -887,7 +899,7 @@
             <div class="yt-play"><div class="yt-play-tri"></div></div>
           </div>
           <div class="yt-overlay">
-            <div class="yt-overlay-icon"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8)"></div></div>
+            <div class="yt-overlay-icon"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="yt-meta">
             <div class="yt-title">Video Title Placeholder</div>
@@ -912,7 +924,7 @@
             <div class="tt-ph-inner">Clip<br/>Placeholder</div>
           </div>
           <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8);margin-left:2px"></div></div>
+            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="tt-meta">
             <div class="tt-views">0.0M views</div>
@@ -926,7 +938,7 @@
             <div class="tt-ph-inner">Clip<br/>Placeholder</div>
           </div>
           <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8);margin-left:2px"></div></div>
+            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="tt-meta">
             <div class="tt-views">0.0M views</div>
@@ -940,7 +952,7 @@
             <div class="tt-ph-inner">Clip<br/>Placeholder</div>
           </div>
           <div class="tt-overlay">
-            <div class="tt-play-btn"><div class="yt-play-tri" style="border-left-color:rgba(255,255,255,0.8);margin-left:2px"></div></div>
+            <div class="tt-play-btn"><div class="yt-play-tri yt-play-tri-light"></div></div>
           </div>
           <div class="tt-meta">
             <div class="tt-views">0.0M views</div>
