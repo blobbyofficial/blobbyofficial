@@ -87,7 +87,9 @@
     transition: background 0.2s;
   }
   ::-webkit-scrollbar-thumb:hover { background: var(--mid); }
-  * { scrollbar-width: thin; scrollbar-color: var(--dim) #000; }
+  @supports (scrollbar-width: thin) {
+    * { scrollbar-width: thin; scrollbar-color: var(--dim) #000; }
+  }
 
   body {
     background: var(--bg);
@@ -510,43 +512,80 @@
   }
   .platform-link:hover { color: var(--fg); }
 
-  /* YouTube embed cards */
-  .yt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .yt-thumb {
+  /* YouTube — single embed */
+  .yt-single {
     position: relative; aspect-ratio: 16/9;
     background: #0d0d0d;
     border: 1px solid var(--border);
-    overflow: hidden; cursor: default;
-    transition: border-color 0.3s;
-    display: block;
+    overflow: hidden;
+    width: 100%;
   }
-  .yt-thumb:hover { border-color: var(--border-hover); }
-  .yt-embed-wrap {
+  .yt-single iframe {
     position: absolute; inset: 0;
-    width: 100%; height: 100%;
-  }
-  .yt-embed-wrap iframe {
     width: 100%; height: 100%;
     border: none; display: block;
   }
-  /* TikTok embed grid */
+  /* TikTok — square thumbnail grid */
   .tt-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .tt-clip {
-    position: relative; aspect-ratio: 9/16;
+    position: relative; aspect-ratio: 1/1;
     background: #0d0d0d;
     border: 1px solid var(--border);
-    overflow: hidden; cursor: default;
-    transition: border-color 0.3s;
+    overflow: hidden;
     display: block;
+    text-decoration: none;
+    transition: border-color 0.3s;
+    cursor: none;
   }
   .tt-clip:hover { border-color: var(--border-hover); }
-  .tt-embed-wrap {
+  .tt-thumb-img {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    transition: transform 0.4s ease;
   }
-  .tt-embed-wrap iframe {
-    width: 100%; height: 100%;
-    border: none; display: block;
+  .tt-clip:hover .tt-thumb-img { transform: scale(1.04); }
+  /* Play button overlay */
+  .tt-play-overlay {
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0);
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.3s;
+  }
+  .tt-clip:hover .tt-play-overlay { background: rgba(0,0,0,0.38); }
+  .tt-play-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.7);
+    background: rgba(0,0,0,0.4);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transform: scale(0.85);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+  .tt-play-icon::after {
+    content: '';
+    display: block;
+    width: 0; height: 0;
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+    border-left: 12px solid rgba(255,255,255,0.9);
+    margin-left: 3px;
+  }
+  .tt-clip:hover .tt-play-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
+  /* Bottom label */
+  .tt-clip-label {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 22px 10px 10px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    pointer-events: none;
   }
 
   /* ── FOOTER ── */
@@ -751,13 +790,12 @@
     .platform-block { padding: 24px 20px; }
     .platform-name { font-size: 26px; }
 
-    /* ── YouTube grid ── */
-    .yt-grid { grid-template-columns: 1fr; gap: 6px; }
-    .yt-thumb { aspect-ratio: 16/9; }
+    /* ── YouTube ── */
+    .yt-single { width: 100%; }
 
     /* ── TikTok grid ── */
     .tt-grid { grid-template-columns: repeat(2, 1fr); gap: 6px; }
-    .tt-clip { border-radius: 0; }
+    .tt-clip { cursor: auto; }
 
     /* ── Footer ── */
     footer {
@@ -906,7 +944,6 @@
       autoplay
       muted
       loop
-      playsinline
       preload="auto"
       aria-hidden="true"
     >
@@ -1031,60 +1068,16 @@
         <div class="platform-name">YouTube</div>
         <a href="https://youtube.com/@blobby.official" class="platform-link" target="_blank" rel="noopener noreferrer">View Channel →</a>
       </div>
-      <div class="yt-grid">
 
-        <!-- YT Card 1 — replace VIDEO_ID_1 with your YouTube video ID -->
-        <div class="yt-thumb">
-          <div class="yt-embed-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID_1?rel=0&modestbranding=1&color=white"
-              title="YouTube video 1"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-        <!-- YT Card 2 — replace VIDEO_ID_2 with your YouTube video ID -->
-        <div class="yt-thumb">
-          <div class="yt-embed-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID_2?rel=0&modestbranding=1&color=white"
-              title="YouTube video 2"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-        <!-- YT Card 3 — replace VIDEO_ID_3 with your YouTube video ID -->
-        <div class="yt-thumb">
-          <div class="yt-embed-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID_3?rel=0&modestbranding=1&color=white"
-              title="YouTube video 3"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
-        <!-- YT Card 4 — replace VIDEO_ID_4 with your YouTube video ID -->
-        <div class="yt-thumb">
-          <div class="yt-embed-wrap">
-            <iframe
-              src="https://www.youtube.com/embed/VIDEO_ID_4?rel=0&modestbranding=1&color=white"
-              title="YouTube video 4"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
-          </div>
-        </div>
-
+      <!-- Single YouTube embed — replace VIDEO_ID with your video's ID (from the URL after watch?v=) -->
+      <div class="yt-single">
+        <iframe
+          src="https://www.youtube.com/watch?v=tlPwIiR_cbY?rel=0&modestbranding=1&color=white"
+          title="Latest YouTube video"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
       </div>
     </div>
 
@@ -1096,44 +1089,56 @@
       </div>
       <div class="tt-grid">
 
-        <!-- TT Clip 1 — replace TIKTOK_VIDEO_ID_1 with your TikTok video ID (the number in the video URL) -->
-        <div class="tt-clip">
-          <div class="tt-embed-wrap">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_1"
-              title="TikTok video 1"
-              allow="encrypted-media"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+        <!--
+          TikTok Clip 1
+          · href  → full URL to the TikTok video (tiktok.com/@blobby.official/video/XXXXXXXXXX)
+          · src   → path to your square thumbnail image uploaded to the site
+                    e.g. /media/images/tiktok/clip1.jpg
+          · alt   → short description of the clip
+        -->
+        <a href="https://tiktok.com/@blobby.official/video/7602970977307233566"
+           class="tt-clip" target="_blank" rel="noopener noreferrer">
+          <img
+            src="/media/images/tiktok/clip1.png"
+            alt="TikTok clip 1"
+            class="tt-thumb-img"
+            loading="lazy"
+          />
+          <div class="tt-play-overlay">
+            <div class="tt-play-icon"></div>
           </div>
-        </div>
+          <div class="tt-clip-label">Watch on TikTok</div>
+        </a>
 
-        <!-- TT Clip 2 — replace TIKTOK_VIDEO_ID_2 with your TikTok video ID -->
-        <div class="tt-clip">
-          <div class="tt-embed-wrap">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_2"
-              title="TikTok video 2"
-              allow="encrypted-media"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+        <!-- TikTok Clip 2 -->
+        <a href="https://tiktok.com/@blobby.official/video/7583396366966115615"
+           class="tt-clip" target="_blank" rel="noopener noreferrer">
+          <img
+            src="/media/images/tiktok/clip2.png"
+            alt="TikTok clip 2"
+            class="tt-thumb-img"
+            loading="lazy"
+          />
+          <div class="tt-play-overlay">
+            <div class="tt-play-icon"></div>
           </div>
-        </div>
+          <div class="tt-clip-label">Watch on TikTok</div>
+        </a>
 
-        <!-- TT Clip 3 — replace TIKTOK_VIDEO_ID_3 with your TikTok video ID -->
-        <div class="tt-clip">
-          <div class="tt-embed-wrap">
-            <iframe
-              src="https://www.tiktok.com/embed/v2/TIKTOK_VIDEO_ID_3"
-              title="TikTok video 3"
-              allow="encrypted-media"
-              allowfullscreen
-              loading="lazy">
-            </iframe>
+        <!-- TikTok Clip 3 -->
+        <a href="https://tiktok.com/@blobby.official/video/7575846723260648735"
+           class="tt-clip" target="_blank" rel="noopener noreferrer">
+          <img
+            src="/media/images/tiktok/clip3.png"
+            alt="TikTok clip 3"
+            class="tt-thumb-img"
+            loading="lazy"
+          />
+          <div class="tt-play-overlay">
+            <div class="tt-play-icon"></div>
           </div>
-        </div>
+          <div class="tt-clip-label">Watch on TikTok</div>
+        </a>
 
       </div>
     </div>
