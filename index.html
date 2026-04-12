@@ -17,7 +17,7 @@
 <link rel="canonical" href="https://blobbyofficial.com/" />
 
 <!-- Open Graph (for Discord, Facebook etc.) -->
-<meta property="og:title" content="blobbyofficial" />
+<meta property="og:title" content="BlobbyOfficial | Premium DaVinci Resolve Presets" />
 <meta property="og:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blobbyofficial.com/" />
@@ -25,7 +25,7 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="blobbyofficial" />
+<meta name="twitter:title" content="BlobbyOfficial | Premium DaVinci Resolve Presets" />
 <meta name="twitter:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta name="twitter:image" content="https://blobbyofficial.com/preview.png" />
 
@@ -35,7 +35,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Cormorant:wght@300;400;600&family=Monsieur+La+Doulaise&display=swap" rel="stylesheet" />
 
 <!-- Performance -->
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -70,12 +70,7 @@
   gtag('config', 'G-TBHKH37GN4');
 </script>
 
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<form>
-  <!-- your form fields -->
-  <div class="cf-turnstile" data-sitekey="0x4AAAAAAB3rRYXeLVFLBhKT"></div>
-  <button type="submit">Submit</button>
-</form>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad" async defer></script>
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -839,9 +834,122 @@
     section { padding: 56px 16px; }
     .platform-block { padding: 20px 16px; }
   }
+
+  /* ── SKIP TO CONTENT ── */
+  .skip-link {
+    position: fixed; top: -100%; left: 50%;
+    transform: translateX(-50%);
+    background: var(--fg); color: var(--bg);
+    padding: 10px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+    text-decoration: none;
+    z-index: 100000;
+    transition: top 0.2s;
+  }
+  .skip-link:focus { top: 12px; }
+
+  /* ── BOT OVERLAY ── */
+  #bot-overlay {
+    position: fixed; inset: 0; z-index: 100000;
+    background: #000;
+    display: none;
+    align-items: center; justify-content: center;
+    flex-direction: column;
+    transition: opacity 0.6s ease;
+  }
+  #bot-overlay.active { display: flex; }
+  #bot-overlay.hiding { opacity: 0; pointer-events: none; }
+
+  /* Scanline effect on overlay */
+  #bot-overlay::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(255,255,255,0.006) 2px, rgba(255,255,255,0.006) 4px
+    );
+    pointer-events: none;
+  }
+
+  #bot-box {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 20px; padding: 48px 40px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    max-width: 420px; width: 90%;
+    text-align: center;
+    position: relative; z-index: 1;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  #bot-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 0.16em;
+    color: var(--dim);
+    margin-bottom: 4px;
+  }
+  #bot-divider {
+    width: 32px; height: 1px;
+    background: var(--border);
+  }
+  #bot-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  #bot-desc {
+    font-size: 11px; color: var(--mid);
+    line-height: 1.7; letter-spacing: 0.04em;
+    max-width: 280px;
+  }
+  #bot-turnstile-container { margin: 8px 0; min-height: 65px; }
+  #bot-retry {
+    display: none; flex-direction: column;
+    align-items: center; gap: 12px;
+    margin-top: 4px;
+  }
+  #bot-retry p {
+    font-size: 11px; color: var(--mid); letter-spacing: 0.04em;
+  }
+  #bot-retry-btn {
+    background: var(--fg); color: var(--bg);
+    border: none; padding: 10px 24px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    cursor: pointer; transition: opacity 0.2s;
+    font-weight: 500;
+  }
+  #bot-retry-btn:hover { opacity: 0.8; }
+  #bot-footer {
+    font-size: 9px; color: var(--dim);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-top: 4px;
+  }
 </style>
 </head>
 <body>
+
+<!-- Skip to main content (keyboard/screen reader accessibility) -->
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<!-- ── BOT PROTECTION OVERLAY ── -->
+<div id="bot-overlay" role="dialog" aria-modal="true" aria-label="Security verification" aria-live="polite">
+  <div id="bot-box">
+    <div id="bot-brand">BLOBBYOFFICIAL</div>
+    <div id="bot-divider"></div>
+    <div id="bot-title">Verify you're human</div>
+    <p id="bot-desc">Unusual activity was detected. Complete the check below to access the site.</p>
+    <div id="bot-turnstile-container"></div>
+    <div id="bot-retry">
+      <p>Verification failed. Please try again.</p>
+      <button id="bot-retry-btn" onclick="retryTurnstile()">Retry</button>
+    </div>
+    <div id="bot-footer">Protected by Cloudflare Turnstile</div>
+  </div>
+</div>
 
 <!-- Advanced SVG Grain System -->
 <svg id="grain-svg" aria-hidden="true">
@@ -952,6 +1060,8 @@
   </ul>
 
 </nav>
+
+<main id="main-content">
 
 <!-- ── HERO ── -->
 <section class="hero">
@@ -1079,7 +1189,7 @@
         Discord
       </div>
       <div class="stat-number">000</div>
-      <div class="stat-label">Server Members :(</div>
+      <div class="stat-label">Server Members</div>
     </div>
   </div>
 
@@ -1170,6 +1280,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-brand">BLOBBYOFFICIAL</div>
@@ -1185,7 +1297,132 @@
 </footer>
 
 <script>
-  /* ── Cursor (desktop only) ── */
+  /* ═══════════════════════════════════════════════
+     BOT DETECTION & CLOUDFLARE TURNSTILE OVERLAY
+  ═══════════════════════════════════════════════ */
+
+  const SITEKEY = '0x4AAAAAAB3rRYXeLVFLBhKT';
+  let overlayActive    = false;
+  let turnstileId      = null;
+  let interactionSeen  = false;
+
+  /* ── Bot signal checks ── */
+  const BOT_CHECKS = [
+    () => navigator.webdriver === true,
+    () => /HeadlessChrome|PhantomJS|Nightmare/i.test(navigator.userAgent),
+    () => !navigator.languages || navigator.languages.length === 0,
+    () => screen.width === 0 || screen.height === 0,
+    /* No plugins AND not a touch device → likely headless */
+    () => typeof navigator.plugins === 'object' &&
+          navigator.plugins.length === 0 &&
+          !('ontouchstart' in window),
+  ];
+
+  function isSuspicious() {
+    return BOT_CHECKS.some(fn => { try { return fn(); } catch(e) { return false; } });
+  }
+
+  /* ── Show the overlay ── */
+  function showBotOverlay() {
+    if (overlayActive) return;
+    overlayActive = true;
+
+    const overlay = document.getElementById('bot-overlay');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    /* Render turnstile widget if API is already loaded */
+    if (window.turnstile && turnstileId === null) renderTurnstile();
+  }
+
+  /* ── Render widget ── */
+  function renderTurnstile() {
+    turnstileId = window.turnstile.render('#bot-turnstile-container', {
+      sitekey:          SITEKEY,
+      theme:            'dark',
+      callback:         onTurnstileSuccess,
+      'error-callback': onTurnstileError,
+    });
+  }
+
+  /* ── Called by Turnstile script once it loads ── */
+  window.onTurnstileLoad = function () {
+    if (overlayActive && turnstileId === null) renderTurnstile();
+  };
+
+  /* ── Verification success ── */
+  function onTurnstileSuccess(token) {
+    const overlay = document.getElementById('bot-overlay');
+    overlay.classList.add('hiding');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      overlay.classList.remove('active', 'hiding');
+      overlayActive = false;
+    }, 650);
+  }
+
+  /* ── Verification error ── */
+  function onTurnstileError() {
+    document.getElementById('bot-retry').style.display = 'flex';
+  }
+
+  /* ── Retry button ── */
+  function retryTurnstile() {
+    document.getElementById('bot-retry').style.display = 'none';
+    if (window.turnstile && turnstileId !== null) {
+      window.turnstile.reset(turnstileId);
+    }
+  }
+
+  /* ── Track first human interaction ── */
+  const INTERACTION_EVENTS = ['mousemove', 'keydown', 'touchstart', 'scroll', 'click', 'pointerdown'];
+  function markInteraction() {
+    interactionSeen = true;
+    INTERACTION_EVENTS.forEach(ev =>
+      document.removeEventListener(ev, markInteraction, { passive: true })
+    );
+  }
+  INTERACTION_EVENTS.forEach(ev =>
+    document.addEventListener(ev, markInteraction, { passive: true })
+  );
+
+  /* ── Run checks on load ── */
+  window.addEventListener('load', function () {
+    /* Immediate bot signal check */
+    if (isSuspicious()) { showBotOverlay(); return; }
+
+    /* Slow-load heuristic: page took > 8 s AND no interaction yet */
+    const loadMs = performance.now();
+    if (loadMs > 8000 && !interactionSeen) { showBotOverlay(); return; }
+
+    /* No interaction at all after 20 s → suspicious */
+    setTimeout(function () {
+      if (!interactionSeen) showBotOverlay();
+    }, 20000);
+  });
+
+
+  /* ═══════════════════════════════════
+     PRICE AUTO-CONVERSION: £00.00 → Free
+  ═══════════════════════════════════ */
+  document.querySelectorAll('.product-price').forEach(function (el) {
+    /* Find the text node (price value) — it's the last child after <small> */
+    const nodes = Array.from(el.childNodes).filter(n => n.nodeType === Node.TEXT_NODE);
+    nodes.forEach(function (node) {
+      const val = node.textContent.trim();
+      /* Match any £0.00 variant, e.g. £00.00, £0.00, £000.00 */
+      if (/^£0+\.0+$/.test(val)) {
+        node.textContent = 'Free';
+        const small = el.querySelector('small');
+        if (small) small.style.display = 'none';
+      }
+    });
+  });
+
+
+  /* ═══════════════════════════════════
+     CURSOR (desktop only)
+  ═══════════════════════════════════ */
   const cursor = document.getElementById('cursor');
   if (window.matchMedia('(pointer: fine)').matches) {
     document.addEventListener('mousemove', e => {
@@ -1200,7 +1437,10 @@
     cursor.style.display = 'none';
   }
 
-  /* ── Hero video fade-in (desktop only) ── */
+
+  /* ═══════════════════════════════════
+     HERO VIDEO fade-in (desktop only)
+  ═══════════════════════════════════ */
   const heroVideo = document.getElementById('heroVideo');
   if (heroVideo && window.innerWidth > 768) {
     const onReady = () => heroVideo.classList.add('loaded');
@@ -1209,11 +1449,13 @@
     } else {
       heroVideo.addEventListener('canplay', onReady, { once: true });
     }
-    /* Fallback: if video fails to load, just leave the dark bg */
     heroVideo.addEventListener('error', () => heroVideo.style.display = 'none');
   }
 
-  /* ── Hamburger nav toggle ── */
+
+  /* ═══════════════════════════════════
+     HAMBURGER NAV TOGGLE
+  ═══════════════════════════════════ */
   const navToggle = document.querySelector('.nav-toggle');
   const navLinks  = document.querySelector('.nav-links');
 
@@ -1221,11 +1463,9 @@
     const isOpen = navLinks.classList.toggle('open');
     navToggle.classList.toggle('open', isOpen);
     navToggle.setAttribute('aria-expanded', isOpen);
-    /* Lock scroll when menu open */
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
-  /* Close menu when a link is clicked */
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('open');
@@ -1235,7 +1475,6 @@
     });
   });
 
-  /* Close menu on resize to desktop */
   window.addEventListener('resize', () => {
     if (window.innerWidth > 768) {
       navLinks.classList.remove('open');
@@ -1245,7 +1484,10 @@
     }
   });
 
-  /* ── Scroll reveal ── */
+
+  /* ═══════════════════════════════════
+     SCROLL REVEAL
+  ═══════════════════════════════════ */
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
