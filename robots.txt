@@ -1,0 +1,58 @@
+# ===========================================
+# robots.txt — blobbyofficial.com
+# ===========================================
+# Docs: https://developers.google.com/search/docs/crawling-indexing/robots/intro
+# Test this file: https://search.google.com/search-console/robots-testing-tool
+# ===========================================
+
+
+# --- Allow all well-behaved crawlers full access ---
+User-agent: *
+Allow: /
+
+
+# --- Bad bots: homepage only ---
+# These crawlers are allowed to see the homepage but nothing else.
+
+User-agent: AhrefsBot
+Allow: /$
+Disallow: /
+
+User-agent: SemrushBot
+Allow: /$
+Disallow: /
+
+User-agent: DotBot
+Allow: /$
+Disallow: /
+
+User-agent: MJ12bot
+Allow: /$
+Disallow: /
+
+User-agent: BLEXBot
+Allow: /$
+Disallow: /
+
+
+# --- AI training crawlers (opt out) ---
+# Uncomment any you wish to block from using your content for AI training.
+# User-agent: GPTBot
+# Allow: /$
+# Disallow: /
+
+# User-agent: Google-Extended
+# Allow: /$
+# Disallow: /
+
+# User-agent: CCBot
+# Allow: /$
+# Disallow: /
+
+# User-agent: anthropic-ai
+# Allow: /$
+# Disallow: /
+
+
+# --- Sitemap location ---
+Sitemap: https://blobbyofficial.com/sitemap.xml
