@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<title>BlobbyOfficial | Premium DaVinci Resolve Presets</title>
+<title>blobbyofficial | High quality, free fusion presets for DaVinci Resolve editors.</title>
 <meta name="description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta name="keywords" content="DaVinci Resolve presets, video editing presets, cinematic LUTs, TikTok editing, YouTube editing, color grading presets" />
 <meta name="author" content="BlobbyOfficial" />
@@ -17,7 +17,7 @@
 <link rel="canonical" href="https://blobbyofficial.com/" />
 
 <!-- Open Graph (for Discord, Facebook etc.) -->
-<meta property="og:title" content="BlobbyOfficial | Premium DaVinci Resolve Presets" />
+<meta property="og:title" content="blobbyofficial | High quality, free fusion presets for DaVinci Resolve editors." />
 <meta property="og:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blobbyofficial.com/" />
@@ -25,7 +25,7 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="BlobbyOfficial | Premium DaVinci Resolve Presets" />
+<meta name="twitter:title" content="blobbyofficial | High quality, free fusion presets for DaVinci Resolve editors." />
 <meta name="twitter:description" content="High quality, free fusion presets for DaVinci Resolve editors." />
 <meta name="twitter:image" content="https://blobbyofficial.com/preview.png" />
 
@@ -303,6 +303,7 @@
     font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
     color: var(--mid); margin-bottom: 48px;
     display: flex; align-items: center; gap: 16px;
+    font-weight: inherit;
   }
   .section-label::before {
     content: ''; width: 32px; height: 1px; background: var(--dim);
@@ -428,6 +429,7 @@
     font-family: 'Bebas Neue', sans-serif;
     font-size: 28px; letter-spacing: 0.06em;
     margin-bottom: 6px;
+    font-weight: inherit;
   }
   .product-desc {
     font-size: 11px; color: var(--mid); line-height: 1.7;
@@ -997,12 +999,12 @@
     </filter>
   </defs>
 </svg>
-<div id="grain"></div>
+<div id="grain" aria-hidden="true"></div>
 
-<div id="cursor"></div>
+<div id="cursor" aria-hidden="true"></div>
 
 <!-- ── NAV ── -->
-<nav class="nav" role="navigation" aria-label="Main Navigation">
+<nav class="nav" aria-label="Main Navigation">
   
   <!-- Brand -->
   <a href="/" class="nav-brand" aria-label="Homepage">
@@ -1078,7 +1080,7 @@
       autoplay
       muted
       loop
-      preload="auto"
+      preload="none"
       aria-hidden="true"
     >
       <source src="/media/hero.mp4" type="video/mp4" />
@@ -1098,12 +1100,12 @@
     <a href="#store" class="btn-primary">View Store</a>
     <a href="#portfolio" class="btn-ghost">See My Work →</a>
   </div>
-  <div class="hero-scroll-hint">Scroll</div>
+  <div class="hero-scroll-hint" aria-hidden="true">Scroll</div>
 </section>
 
 <!-- ── STORE ── -->
 <section class="store" id="store">
-  <div class="section-label reveal">Store</div>
+  <h2 class="section-label reveal">Store</h2>
 
   <div class="store-grid">
 
@@ -1127,7 +1129,7 @@
       </a>
 
       <div class="product-info">
-        <div class="product-name">Edge Reflect</div>
+        <h3 class="product-name">Edge Reflect</h3>
 
         <span class="product-signature">
           preset by blobby
@@ -1163,13 +1165,13 @@
 
 <!-- ── PORTFOLIO ── -->
 <section class="portfolio" id="portfolio">
-  <div class="section-label reveal">Portfolio</div>
+  <h2 class="section-label reveal">Portfolio</h2>
 
   <!-- Stats -->
   <div class="stats-row reveal">
     <div class="stat-block">
       <div class="stat-platform">
-        <span class="stat-platform-dot dot-yt"></span>
+        <span class="stat-platform-dot dot-yt" aria-hidden="true"></span>
         YouTube
       </div>
       <div class="stat-number">47</div>
@@ -1177,7 +1179,7 @@
     </div>
     <div class="stat-block">
       <div class="stat-platform">
-        <span class="stat-platform-dot dot-tt"></span>
+        <span class="stat-platform-dot dot-tt" aria-hidden="true"></span>
         TikTok
       </div>
       <div class="stat-number">31.3K</div>
@@ -1185,7 +1187,7 @@
     </div>
     <div class="stat-block">
       <div class="stat-platform">
-        <span class="stat-platform-dot dot-dc"></span>
+        <span class="stat-platform-dot dot-dc" aria-hidden="true"></span>
         Discord
       </div>
       <div class="stat-number">000</div>
@@ -1234,7 +1236,7 @@
            class="tt-clip" target="_blank" rel="noopener noreferrer">
           <img
             src="/media/images/tiktok/clip1.png"
-            alt="TikTok clip 1"
+            alt="BlobbyOfficial TikTok edit — clip 1"
             class="tt-thumb-img"
             loading="lazy"
           />
@@ -1249,7 +1251,7 @@
            class="tt-clip" target="_blank" rel="noopener noreferrer">
           <img
             src="/media/images/tiktok/clip2.png"
-            alt="TikTok clip 2"
+            alt="BlobbyOfficial TikTok edit — clip 2"
             class="tt-thumb-img"
             loading="lazy"
           />
@@ -1264,7 +1266,7 @@
            class="tt-clip" target="_blank" rel="noopener noreferrer">
           <img
             src="/media/images/tiktok/clip3.png"
-            alt="TikTok clip 3"
+            alt="BlobbyOfficial TikTok edit — clip 3"
             class="tt-thumb-img"
             loading="lazy"
           />
@@ -1463,6 +1465,7 @@
     const isOpen = navLinks.classList.toggle('open');
     navToggle.classList.toggle('open', isOpen);
     navToggle.setAttribute('aria-expanded', isOpen);
+    navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
 
@@ -1471,6 +1474,7 @@
       navLinks.classList.remove('open');
       navToggle.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
     });
   });
@@ -1480,6 +1484,7 @@
       navLinks.classList.remove('open');
       navToggle.classList.remove('open');
       navToggle.setAttribute('aria-expanded', 'false');
+      navToggle.setAttribute('aria-label', 'Open menu');
       document.body.style.overflow = '';
     }
   });
