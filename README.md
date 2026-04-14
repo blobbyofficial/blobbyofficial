@@ -1,9 +1,9 @@
 # blobbyofficial
 
 <!-- Smaller circular image -->
-<img src="https://raw.githubusercontent.com/blobbyofficial/blobbyofficial/refs/heads/main/media/images/icons/Logo/logo.png" alt="blobbyofficial" width="512" height="512" style="border-radius:50%; object-fit:cover;">
+<img src="https://raw.githubusercontent.com/blobbyofficial/blobbyofficial/refs/heads/main/media/images/icons/Logo/logo.png" alt="blobbyofficial's logo" width="512" height="512" style="border-radius:50%; object-fit:cover;">
 
-## video editor · preset maker · davinci resolve
+## video editor · davinci resolve · fusion presets
 
 [![Website](https://img.shields.io/badge/blobbyofficial.com-000000?style=flat-square&logo=googlechrome&logoColor=white)](https://blobbyofficial.com)
 [![TikTok](https://img.shields.io/badge/@blobby.official-000000?style=flat-square&logo=tiktok&logoColor=white)](https://tiktok.com/@blobby.official)
@@ -12,9 +12,9 @@
 
 ---
 
-I make **free DaVinci Resolve fusion presets** for short-form video editors — built around TikTok workflows and cinematic looks.
+I create **free DaVinci Resolve presets** for short-form content, such as TikTok and YouTube short videos.
 
-Presets are available on my [store](https://blobbyofficial.com/#store), and tutorials for them are coming to [YouTube](https://youtube.com/@blobby.official).
+Presets available on my [store](https://blobbyofficial.com/#store), and tutorials are coming to [YouTube](https://youtube.com/@blobby.official) soon.
 
 ---
 
@@ -50,7 +50,7 @@ This repo is the source for [blobbyofficial.com](https://blobbyofficial.com).
 
 ### Tools i use
 
-(possible affiliate links)
+(Some affiliate links)
 
 [![DaVinci Resolve](https://img.shields.io/badge/DaVinci%20Resolve%20Studio-000000?style=flat-square&logo=blackmagicdesign&logoColor=white)](https://www.blackmagicdesign.com/products/davinciresolve)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-000000?style=flat-square&logo=cloudflare&logoColor=white)](https://cloudflare.com)
