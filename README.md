@@ -1,6 +1,7 @@
 # blobbyofficial
 
-![blobbyofficial](https://raw.githubusercontent.com/blobbyofficial/blobbyofficial/refs/heads/main/media/images/icons/Logo/logo.png)
+<!-- Smaller circular image -->
+<img src="https://raw.githubusercontent.com/blobbyofficial/blobbyofficial/refs/heads/main/media/images/icons/Logo/logo.png" alt="blobbyofficial" width="120" height="120" style="border-radius:50%; object-fit:cover;">
 
 ## video editor · preset maker · davinci resolve
 
