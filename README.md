@@ -1,6 +1,6 @@
 # blobbyofficial
 
-![blobbyofficial](https://blobbyofficial.com/media/images/icons/Logo/logo.png)
+![blobbyofficial](https://raw.githubusercontent.com/blobbyofficial/blobbyofficial/refs/heads/main/media/images/icons/Logo/logo.png)
 
 ## video editor · preset maker · davinci resolve
 
