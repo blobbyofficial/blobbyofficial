@@ -20,7 +20,6 @@ Presets available on my [store](https://blobbyofficial.com/#store), and tutorial
 
 ### What's here
 
-```text
 blobbyofficial/
 ├── index.html
 ├── assets/
@@ -31,6 +30,12 @@ blobbyofficial/
 ├── media/
 │   ├── hero.mp4
 │   └── images/
+│       ├── favicon/
+│       │   ├── android-chrome-192x192.png
+│       │   ├── android-chrome-512x512.png
+│       │   ├── apple-touch-icon.png
+│       │   ├── favicon-16x16.png
+│       │   └── favicon-32x32.png
 │       ├── store/
 │       │   └── edge_reflect/
 │       │       └── 1080x1080.png
@@ -39,12 +44,12 @@ blobbyofficial/
 │           ├── clip2.png
 │           └── clip3.png
 ├── favicon.ico
+├── site.webmanifest
 ├── preview.png
 ├── robots.txt
 └── sitemap.xml
-```
 
-This repo is the source for [blobbyofficial.com](https://blobbyofficial.com).
+This is the source for [blobbyofficial.com](https://blobbyofficial.com).
 
 ---
 
