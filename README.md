@@ -1,6 +1,6 @@
 # blobbyofficial
 
-![blobbyofficial](https://blobbyofficial.com/media/images/icons/logo/logo.png)
+![blobbyofficial](https://blobbyofficial.com/media/images/icons/Logo/logo.png)
 
 ## video editor · preset maker · davinci resolve
 
