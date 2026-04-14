@@ -20,6 +20,7 @@ Presets available on my [store](https://blobbyofficial.com/#store), and tutorial
 
 ### What's here
 
+```text
 blobbyofficial/
 ├── index.html
 ├── assets/
@@ -48,6 +49,7 @@ blobbyofficial/
 ├── preview.png
 ├── robots.txt
 └── sitemap.xml
+```
 
 This is the source for [blobbyofficial.com](https://blobbyofficial.com).
 
