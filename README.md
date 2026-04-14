@@ -1,6 +1,6 @@
 # blobbyofficial
 
-![blobbyofficial](https://github.com/blobbyofficial.png)
+![blobbyofficial](https://blobbyofficial.com/media/images/icons/logo/logo.png)
 
 ## video editor · preset maker · davinci resolve
 
@@ -43,11 +43,13 @@ blobbyofficial/
 └── sitemap.xml
 ```
 
-This repo is the source for [blobbyofficial.com](https://blobbyofficial.com) — a single-page site built by hand with plain HTML, CSS, and JavaScript.
+This repo is the source for [blobbyofficial.com](https://blobbyofficial.com).
 
 ---
 
-### Tools i use (possible affiliates)
+### Tools i use
+
+(possible affiliate links)
 
 [![DaVinci Resolve](https://img.shields.io/badge/DaVinci%20Resolve%20Studio-000000?style=flat-square&logo=blackmagicdesign&logoColor=white)](https://www.blackmagicdesign.com/products/davinciresolve)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-000000?style=flat-square&logo=cloudflare&logoColor=white)](https://cloudflare.com)
