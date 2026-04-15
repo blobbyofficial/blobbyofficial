@@ -23,6 +23,7 @@ Presets available on my [store](https://blobbyofficial.com/#store), and tutorial
 ```text
 blobbyofficial/
 ├── index.html
+├── 404.html
 ├── assets/
 │   ├── css/
 │   │   └── style.css
