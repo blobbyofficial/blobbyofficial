@@ -9,6 +9,7 @@
 [![TikTok](https://img.shields.io/badge/@blobby.official-000000?style=flat-square&logo=tiktok&logoColor=white)](https://tiktok.com/@blobby.official)
 [![YouTube](https://img.shields.io/badge/@blobby.official-000000?style=flat-square&logo=youtube&logoColor=white)](https://youtube.com/@blobby.official)
 [![Discord](https://img.shields.io/badge/Discord-000000?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/quq8thpMEd)
+[![Discord](https://img.shields.io/badge/Payhip-000000?style=flat-square&logo=payhip&logoColor=white)](https://payhip.com/blobbyofficial)
 
 ---
 
