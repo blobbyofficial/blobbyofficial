@@ -9,6 +9,7 @@
 [![TikTok](https://img.shields.io/badge/@blobby.official-000000?style=flat-square&logo=tiktok&logoColor=white)](https://tiktok.com/@blobby.official)
 [![YouTube](https://img.shields.io/badge/@blobby.official-000000?style=flat-square&logo=youtube&logoColor=white)](https://youtube.com/@blobby.official)
 [![Discord](https://img.shields.io/badge/Discord-000000?style=flat-square&logo=discord&logoColor=white)](https://discord.gg/quq8thpMEd)
+[![Discord](https://img.shields.io/badge/Payhip-000000?style=flat-square&logo=payhip&logoColor=white)](https://payhip.com/blobbyofficial)
 
 ---
 
@@ -65,6 +66,7 @@ This is the source for [blobbyofficial.com](https://blobbyofficial.com).
 [![Payhip](https://img.shields.io/badge/Payhip-000000?style=flat-square&logo=shopify&logoColor=white)](https://payhip.com?fp_ref=blobbyofficial)
 [![Epidemic Sounds](https://img.shields.io/badge/Epidemic%20Sounds-000000?style=flat-square&logo=audacity&logoColor=white)](https://share.epidemicsound.com/thb518)
 [![Eleven Labs](https://img.shields.io/badge/Eleven%20Labs-000000?style=flat-square&logo=googleassistant&logoColor=white)](https://try.elevenlabs.io/blobbyofficial)
+[![Proton](https://img.shields.io/badge/Proton-000000?style=flat-square&logo=googleassistant&logoColor=white)](https://pr.tn/ref/XWAW73G4)
 
 ---
 
